@@ -1,0 +1,166 @@
+<div layout="column" class="md-whiteframe-z1 webkit-border-top-radius" style="height:100%">
+    <md-toolbar class="webkit-border-top-radius">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span><i class="fa fa-phone fa-lg"></i> <span hide-sm hide-md>Contatos&nbsp;</span><b>{{filtered.length}}</b></span>
+            </h2>
+            <span flex></span>
+            <md-input-container style="margin-bottom:-20px">
+                <label class="label" style="color:#fff">Buscar</label>
+                <input type="text" class="md-accent" ng-model="searchText" style="color:#fff">
+            </md-input-container>
+            <!-- <span ng-hide="loader">
+                <md-select hide-sm class="md-accent" ng-model="pageSize" ng-click="currentPage = 0">
+                    <md-option value="10">10</md-option>
+                    <md-option value="25">25</md-option>
+                    <md-option value="50">50</md-option>
+                    <md-option value="100">100</md-option>
+                </md-select>
+                <md-button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                    Anterior
+                </md-button>
+                {{currentPage+1}} / {{numberOfPages()}}
+                <md-button ng-disabled="currentPage >= filtered.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                    Proxima
+                </md-button>
+            </span> -->
+        </div>
+        <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+    </md-toolbar>
+    <div ng-show="loader" layout="row" style="height:100%" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-content ng-hide="loader">
+        <div layout="row" layout-sm="column" ng-click="currentPage = 0">
+            <div flex>
+                <md-subheader class="md-no-sticky">Cidade
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="height: 200px">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(city_filter)" ng-checked="checkAllMet(city_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in city_filter" ng-model="selected[item]" aria-label="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div>
+            <div flex>
+                <md-subheader class="md-no-sticky">Estado
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="max-height: 200px">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(federation_unit_filter)" ng-checked="checkAllMet(federation_unit_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in federation_unit_filter" ng-model="selected[item]" aria-label="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div>
+            <!-- <div flex>
+                <md-subheader class="md-no-sticky">Profissão
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="max-height: 200px;">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(job_filter)" ng-checked="checkAllMet(job_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in job_filter" ng-model="selected[item]" aria-label="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div> -->
+        </div>
+
+        <md-content ng-repeat="item in filtered=(DADOS_FILTRADOS | filter:filterByItem) | pagination:currentPage*pageSize | limitTo:pageSize | filter:searchText | orderBy:'name'">
+
+            <div class="md-list-item-text items-propostas">
+
+                <div layout="row" layout-sm="column" class="item-proposta-titulo" ng-click="abrirFechar(item)">
+                    <div flex>
+                        <p>{{item.name}}</p>
+                    </div>
+
+
+                </div>
+
+                <div class="content-list" ng-show="item.open">
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Telefone</h3>
+                            <div data-ng-repeat="telefone in item.telephones">
+                                <p>{{telefone}}</p>
+                            </div>
+                        </div>
+                        <div flex>
+                            <h3>E-mail</h3>
+                            <div data-ng-repeat="email in item.emails">
+                                <p>{{email}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Data de Nascimento</h3>
+                            <p>{{item.birth_date | date: "dd-MM-yyyy"}}</p>
+                        </div>
+
+                        <div flex>
+                            <h3>Profissão</h3>
+                            <p>{{item.job}}</p>
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Endereço</h3>
+                            <p>{{item.address}}, {{item.city}}, {{item.federation_unit}}, {{item.postal_code}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <md-toolbar layout="row" layout-sm="column" class="item-proposta">
+                    <div class="label"><i class="fa fa-sort-desc fa-4x"></i></div>
+                    <div flex>
+                        <h3>Nome</h3>
+                        <p>{{item.name}}</p>
+                    </div>
+
+                    <div flex>
+                        <h3>Telefone</h3>
+                        <div data-ng-repeat="telefone in item.telephones">
+                            <p>{{telefone}}</p>
+                        </div>
+                    </div>
+                </md-toolbar>
+
+                <div layout="row" layout-sm="column" class="item-proposta">
+                    <div flex>
+                        <h3>Data de Nascimento</h3>
+                        <p>{{item.birth_date | date: "dd-MM-yyyy"}}</p>
+                    </div>
+
+                    <div flex>
+                        <h3>Profissão</h3>
+                        <p>{{item.job}}</p>
+                    </div>
+
+                </div>
+
+                <div layout="row" layout-sm="column" class="item-proposta listra">
+
+                    <div flex>
+                        <h3>Endereço</h3>
+                        <p>{{item.address}}, {{item.city}}, {{item.federation_unit}}, {{item.postal_code}}</p>
+                    </div>
+                </div> -->
+
+            </div>
+        </md-content>
+
+    </md-content>
+</div>
+<br>

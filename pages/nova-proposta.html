@@ -1,0 +1,103 @@
+<form name="myForm" novalidate>
+    <div layout="column" class="md-whiteframe-z1 webkit-border-top-radius">
+        <md-toolbar class="webkit-border-top-radius">
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span><i class="fa fa-send fa-lg"></i> Enviar nova proposta.</span>
+                </h2>
+                <span flex></span>
+                <md-button ng-click="addPedido()" ng-disabled="myForm.$invalid || disable"><i class="fa fa-send fa-lg"></i> ENVIAR</md-button>
+            </div>
+        </md-toolbar>
+        <!-- <pre>
+        {{things | json}}
+    </pre> -->
+
+    <md-content layout-padding class="autocomplete" layout="column">
+        <md-contact-chips ng-model="things.solicitante" md-contacts="querySearch($query)" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match filter-selected="filterSelected" placeholder="Solicitante">
+    </md-contact-chips>
+</md-content>
+<md-content layout-padding class="autocomplete" layout="column">
+    <md-contact-chips ng-model="things.interessados" md-contacts="querySearch($query)" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match filter-selected="filterSelected" placeholder="Interessados">
+</md-contact-chips>
+</md-content>
+
+
+
+<md-content layout-padding style="margin-top:15px">
+    <div layout layout-sm="column">
+        <!-- https://docs.angularjs.org/api/ng/input/input%5Bdate%5D -->
+
+        <div layout="column" layout-align=" center" flex>
+            <md-select placeholder="Tipo Solicitação" ng-model="things.tipo_solicitacao">
+                <md-option value="orcamento">Orçamento</md-option>
+                <md-option value="legislativo">Legislativo</md-option>
+                <md-option value="judiciario">Judiciário</md-option>
+                <md-option value="audiencia">Audiência</md-option>
+            </md-select>
+        </div>
+
+        <div layout="column" layout-align=" center" flex>
+            <md-select placeholder="Prioridade" ng-model="things.prioridade">
+                <md-option value="baixa">Baixa</md-option>
+                <md-option value="media">Media</md-option>
+                <md-option value="alta">Alta</md-option>
+            </md-select>
+        </div>
+
+        <div layout="column" layout-align=" center" flex>
+            <md-select placeholder="Situação" ng-model="things.situacao">
+                <md-option value="solicitado">Solicitado</md-option>
+                <md-option value="tramitando">Tramitando</md-option>
+                <md-option value="pendencias">Pendências</md-option>
+                <md-option value="arquivado">Arquivado</md-option>
+                <md-option value="cancelado">Cancelado</md-option>
+            </md-select>
+        </div>
+
+    </div>
+</md-content>
+
+
+<md-content layout-padding>
+    <div layout layout-sm="column">
+        <!-- https://docs.angularjs.org/api/ng/input/input%5Bdate%5D -->
+
+        <md-input-container flex>
+            <label>Concedente</label>
+            <input type="text" name="concedente" ng-model="things.concedente">
+        </md-input-container>
+
+        <md-input-container flex>
+            <label>Ano da Solicitação</label>
+            <input type="number" name="ano_solicitacao" ng-model="things.ano_solicitacao" min="2000" max="2020" required>
+        </md-input-container>
+
+        <md-input-container flex style="margin-top:-2px">
+            <label>Data de Solicitação</label>
+            <input type="date" name="data_solicitacao" ng-model="things.data_solicitacao" required>
+        </md-input-container>
+
+
+
+    </div>
+</md-content>
+
+<md-content layout-padding style="margin-top:-20px">
+    <md-input-container flex>
+        <label>Objeto</label>
+        <textarea required ng-model="things.objeto" columns="1" md-maxlength="250"></textarea>
+    </md-input-container>
+</md-content>
+
+
+
+<md-toolbar class="md-accent">
+    <div class="md-toolbar-tools">
+        <span flex></span>
+        <md-button class="md-primary" ng-click="addPedido()" ng-disabled="myForm.$invalid || disable"><i class="fa fa-send fa-lg"></i> ENVIAR</md-button>
+    </div>
+</md-toolbar>
+</div>
+</form>
+<br>

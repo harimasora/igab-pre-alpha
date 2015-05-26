@@ -1,0 +1,374 @@
+<div flex layout="row" style="width:100%; height:100%">
+
+    <md-sidenav ng-if="loggedIn" md-is-locked-open="$mdMedia('gt-lg')" class="menu_principal md-whiteframe-z3" md-component-id="left" style="height:100vh; max-height: 100vh">
+
+        <!-- <div layout="column" layout-fill> -->
+            <md-toolbar class="md-whiteframe-z0">
+                <div class="md-toolbar-tools">
+                    <div layout="row">
+                        <div style="width:64px;height:64px; margin-left:-15px"><img src="assets/img/logo.43df9625.png" alt="iGab" style="width:64px;height:64px"></div>
+                        <div class="name" style="font-size:16px; font-weight:bold; margin-top:24px">{{profile.cabinet_name}}</div>
+                    </div>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <md-list class="navigation">
+                    <md-item ng-repeat="item in pages" class="{{item.class}}">
+                        <md-button class="waves-effect" ng-if="!item.space" ng-click="selectPage(item)" ng-class="{'active' : item.link === selected_menu }">
+                            <md-icon class="fa {{item.icon}} fa-2x"></md-icon>
+                            <span class="name">{{item.name}}</span>
+                        </md-button>
+                        <span layout-padding ng-if="item.space">
+                        </span>
+                    </md-item>
+                </md-list>
+            </md-content>
+        <!-- </div> -->
+    </md-sidenav>
+
+
+
+<div layout="column" layout-fill style="height:100vh; max-height: 100vh">
+
+    <md-toolbar ng-if="loggedIn" class="md-whiteframe-z0">
+        <div class="md-toolbar-tools">
+            <md-button hide-gt-lg class="md-icon-button" aria-label="Menu" ng-click="toggleList()">
+                <md-icon class="fa fa-bars fa-2x"></md-icon>
+            </md-button>
+            <h2>
+                <i class="fa fa-briefcase fa-lg"></i>&nbsp;&nbsp;<b>Propostas</b> {{filtered.length}}
+            </h2>
+            <p ng-bind-html="myHTML"></p>
+            <span flex></span>
+            <!-- <md-button class="md-icon-button" ng-click="criarPedido()" aria-label="criar pedido">
+                <md-icon class="fa fa-plus fa-2x"></md-icon>
+            </md-button> -->
+
+            <md-button hide-gt-lg ng-show="profile.options.view.propostas.prender_sidenav" class="md-icon-button" ng-click="toggleRight()" aria-label="profile.options.view.propostas.prender_sidenav">
+                <md-icon class="fa fa-sliders fa-2x"></md-icon>
+            </md-button>
+            <md-button ng-show="!profile.options.view.propostas.prender_sidenav " class="md-icon-button" ng-click="toggleRight()" aria-label="profile.options.view.propostas.prender_sidenav">
+                <md-icon class="fa fa-sliders fa-2x"></md-icon>
+            </md-button>
+            <!-- <md-button class="md-icon-button" aria-label="Minha Conta" ng-click="selectPage(account)">
+                <md-icon class="fa fa-user fa-2x"></md-icon>
+            </md-button> -->
+        </div>
+
+        <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+
+    </md-toolbar>
+
+    <!-- <span ng-show="loader" layout="row" style="height:100%;" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </span> -->
+
+    <!-- <md-button class="md-primary md-fab md-fab-bottom-right">
+        <md-icon class="fa fa-plus fa-2x"></md-icon>
+    </md-button>
+    <md-button class="md-primary md-fab md-fab-bottom-right" style="margin-right:80px;">
+        <md-icon class="fa fa-sliders fa-2x"></md-icon>
+    </md-button>
+    <md-button class="md-primary md-fab md-fab-bottom-right" style="margin-right:160px;">
+        <md-icon class="fa fa-sliders fa-2x"></md-icon>
+    </md-button> -->
+    <md-toolbar class="md-accent md-hue-2" ng-hide="loader">
+        <div class="md-toolbar-tools">
+            <div flex layout-gt-md="row">
+                <div>
+                    Total Solicitado&nbsp;
+                </div>
+                <div>
+                    <b>R$ {{somarAll('amount_commited', filtered)  | number:2}}</b>
+                </div>
+            </div>
+            <div flex layout-gt-md="row">
+                <div>
+                    Total Liberado&nbsp;
+                </div>
+                <div>
+                    <b>R$ {{somarAll('amount_released', filtered)  | number:2}}</b>
+                </div>
+            </div>
+        </div>
+    </md-toolbar>
+    <md-content ng-hide="loader" style="max-width:100%!important; width:100%!important"> <!-- tem que ser md-content por causa da md-toolbar acima-->
+
+        <!-- <p style="width:2000px;">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p> -->
+
+
+
+    <table st-table="filtered">
+    	<thead>
+    	<tr>
+            <th ng-show="profile.options.view.propostas.proposal_number">proposal_number</th>
+            <th ng-show="profile.options.view.propostas.agreement_number">agreement_number</th>
+            <th ng-show="profile.options.view.propostas.agreement_object">agreement_object</th>
+            <th ng-show="profile.options.view.propostas.amendment_type">amendment_type</th>
+            <th ng-show="profile.options.view.propostas.amount_commited">amount_commited</th>
+            <th ng-show="profile.options.view.propostas.amount_released">amount_released</th>
+            <th ng-show="profile.options.view.propostas.commitment_number">commitment_number</th>
+            <th ng-show="profile.options.view.propostas.current_employment_situation">current_employment_situation</th>
+            <th ng-show="profile.options.view.propostas.federation_unit">federation_unit</th>
+            <th ng-show="profile.options.view.propostas.grantor">grantor</th>
+            <th ng-show="profile.options.view.propostas.has_opinion">has_opinion</th>
+            <th ng-show="profile.options.view.propostas.modality">modality</th>
+            <th ng-show="profile.options.view.propostas.municipality">municipality</th>
+            <th ng-show="profile.options.view.propostas.parliamentarian">parliamentarian</th>
+            <th ng-show="profile.options.view.propostas.process_number">process_number</th>
+            <th ng-show="profile.options.view.propostas.proponent">proponent</th>
+            <th ng-show="profile.options.view.propostas.situation">situation</th>
+            <th ng-show="profile.options.view.propostas.specific_situation">specific_situation</th>
+            <th ng-show="profile.options.view.propostas.year">year</th>
+            <th ng-show="profile.options.view.propostas.id">$id</th>
+    	</tr>
+    	</thead>
+
+    	<tbody>
+    	<tr ng-repeat="proposta in filtered=(propostas | filter:filterByProperties | filter:searchText) | limitTo:9999" ng-click="clicou(proposta.$id)">
+            <td ng-show="profile.options.view.propostas.proposal_number">{{proposta.proposal_number}}</td>
+            <td ng-show="profile.options.view.propostas.agreement_number">{{proposta.agreement_number}}</td>
+            <td ng-show="profile.options.view.propostas.agreement_object">{{proposta.agreement_object}}</td>
+            <td ng-show="profile.options.view.propostas.amendment_type">{{proposta.amendment_type}}</td>
+            <td ng-show="profile.options.view.propostas.amount_commited">{{proposta.amount_commited}}</td>
+            <td ng-show="profile.options.view.propostas.amount_released">{{proposta.amount_released}}</td>
+            <td ng-show="profile.options.view.propostas.commitment_number">{{proposta.commitment_number}}</td>
+            <td ng-show="profile.options.view.propostas.current_employment_situation">{{proposta.current_employment_situation}}</td>
+            <td ng-show="profile.options.view.propostas.federation_unit">{{proposta.federation_unit}}</td>
+            <td ng-show="profile.options.view.propostas.grantor">{{proposta.grantor}}</td>
+            <td ng-show="profile.options.view.propostas.has_opinion">{{proposta.has_opinion}}</td>
+            <td ng-show="profile.options.view.propostas.modality">{{proposta.modality}}</td>
+            <td ng-show="profile.options.view.propostas.municipality">{{proposta.municipality}}</td>
+            <td ng-show="profile.options.view.propostas.parliamentarian">{{proposta.parliamentarian}}</td>
+            <td ng-show="profile.options.view.propostas.process_number">{{proposta.process_number}}</td>
+            <td ng-show="profile.options.view.propostas.proponent">{{proposta.proponent}}</td>
+            <td ng-show="profile.options.view.propostas.situation">{{proposta.situation}}</td>
+            <td ng-show="profile.options.view.propostas.specific_situation">{{proposta.specific_situation}}</td>
+            <td ng-show="profile.options.view.propostas.year">{{proposta.year}}</td>
+            <td ng-show="profile.options.view.propostas.id">{{proposta.$id}}</td>
+    	</tr>
+    	</tbody>
+    </table>
+
+
+
+<!-- <table st-table="propostas" class="table table-striped">
+    <thead>
+    <tr>
+        <th st-ratio="20" st-sort="modality">first name</th>
+        <th st-ratio="20" st-sort="amount_commited">last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="proposta in filtered=(propostas | filter:searchText)">
+        <td st-ratio="20">{{proposta.modality}}</td>
+        <td st-ratio="20">{{proposta.amount_commited}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5" class="text-center">
+            <div  st-items-by-page="20" st-pagination=""></div>
+        </td>
+    </tr>
+    </tfoot>
+</table> -->
+
+    </md-content>
+</div>
+
+    <!-- width: calc(100% - 220px); margin-left: 220px; position: fixed; left: 0; right: 0; -->
+    <md-sidenav class="md-sidenav-right md-whiteframe-z3" md-is-locked-open="$mdMedia('gt-lg') && profile.options.view.propostas.prender_sidenav" md-component-id="right" style="height:100vh; max-height: 100vh">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <i class="fa fa-sliders fa-lg"></i>&nbsp;&nbsp;<b>Filtrar</b>
+                </h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="opções de visualização" ng-click="opcoes ? opcoes = false : opcoes = true;">
+                    <md-icon class="fa fa-eye fa-2x"></md-icon>
+                </md-button>
+                <md-switch hide-sm hide-md hide-lg class="md-primary md-hue-3" ng-model="profile.options.view.propostas.prender_sidenav" aria-label="profile.options.view.propostas.prender_sidenav"></md-switch>
+            </div>
+            <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+        </md-toolbar>
+
+        <md-content ng-hide="loader" layout-padding>
+
+    <div ng-show="opcoes">
+          <md-checkbox ng-model="profile.options.view.propostas.proposal_number" arial-label="proposal_number" class="md-hue-2">proposal_number</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.agreement_number" arial-label="agreement_number" class="md-hue-2"> agreement_number</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.agreement_object" arial-label="agreement_object" class="md-hue-2"> agreement_object</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.amendment_type" arial-label="amendment_type" class="md-hue-2"> amendment_type</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.amount_commited" arial-label="amount_commited" class="md-hue-2"> amount_commited</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.amount_released" arial-label="amount_released" class="md-hue-2"> amount_released</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.commitment_number" arial-label="commitment_number" class="md-hue-2"> commitment_number</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.current_employment_situation" arial-label="current_employment_situation" class="md-hue-2"> current_employment_situation</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.federation_unit" arial-label="federation_unit" class="md-hue-2"> federation_unit</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.grantor" arial-label="grantor" class="md-hue-2"> grantor</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.has_opinion" arial-label="has_opinion" class="md-hue-2"> has_opinion</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.modality" arial-label="modality" class="md-hue-2"> modality</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.municipality" arial-label="municipality" class="md-hue-2"> municipality</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.parliamentarian" arial-label="parliamentarian" class="md-hue-2"> parliamentarian</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.process_number" arial-label="process_number" class="md-hue-2"> process_number</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.proponent" arial-label="proponent" class="md-hue-2"> proponent</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.situation" arial-label="situation" class="md-hue-2"> situation</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.specific_situation" arial-label="specific_situation" class="md-hue-2"> specific_situation</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.year" arial-label="year" class="md-hue-2"> year</md-checkbox>
+          <md-checkbox ng-model="profile.options.view.propostas.id" arial-label="id" class="md-hue-2"> id</md-checkbox>
+    </div>
+
+      <div ng-show="!opcoes" style="padding-bottom:64px">
+
+          <md-content>
+
+              <md-button ng-click="filter = {};">
+                  limpar
+              </md-button>
+
+              <md-input-container>
+                  <label for="testInput">Pesquisar</label>
+                  <input type="text" ng-model="searchText" md-sidenav-focus>
+              </md-input-container>
+
+              <div ng-repeat="cat in categories" ng-init="filter[cat]={}">
+                  <md-checkbox class="md-primary" ng-model="exclusive">
+                      {{cat}}
+                  </md-checkbox>
+
+                  <span ng-repeat="value in getItems(cat, propostas)">
+                      <span ng-show="!exclusive + (filtered | filter:value:true).length">
+
+                          <md-switch class="md-primary" ng-model="filter[cat][value]" ng-model="value">
+                              ({{(filtered | filter:value:true).length}})&nbsp;{{value}}
+                          </md-switch>
+
+                      </span>
+
+                  </span>
+              </div>
+
+          </md-content>
+
+          <!-- <div ng-repeat="w in filtered=(wines | filter:filterByProperties | filter:query)">
+              {{w.name}} | {{w.estado}} | {{w.situacao}}
+          </div>
+          <hr />
+          Number of results: {{filtered.length}} -->
+
+
+
+          <!-- <div layout="column" layout-sm="column" ng-click="currentPage = 0">
+              <div flex>
+                  <md-subheader class="md-no-sticky">Situação Especifica
+                      <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                  </md-subheader>
+                  <md-content layout-padding>
+
+                      <md-switch class="md-primary" ng-repeat="item in specific_situation_filter" ng-model="selected[item]" aria-label="selected[item]">
+                          {{item}}
+                      </md-switch>
+                  </md-content>
+              </div>
+              <div flex>
+                  <md-subheader class="md-no-sticky">Situação
+                      <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                  </md-subheader>
+                  <md-content layout-padding>
+
+                      <md-switch class="md-primary" ng-repeat="item in situation_filter" ng-model="selected[item]">
+                          {{item}}
+                      </md-switch>
+                  </md-content>
+              </div>
+          </div> -->
+
+      </div>
+
+    </md-content>
+    </md-sidenav>
+
+</div>

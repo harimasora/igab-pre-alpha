@@ -1,0 +1,356 @@
+<div flex layout="row" style="width:100%; height:100%">
+
+    <md-sidenav ng-if="loggedIn" md-is-locked-open="$mdMedia('gt-lg')" class="menu_principal md-whiteframe-z3" md-component-id="left" style="height:100vh; max-height: 100vh">
+
+        <!-- <div layout="column" layout-fill> -->
+            <md-toolbar class="md-whiteframe-z0">
+                <div class="md-toolbar-tools">
+                    <div layout="row">
+                        <div style="width:64px;height:64px; margin-left:-15px"><img src="assets/img/logo.43df9625.png" alt="iGab" style="width:64px;height:64px"></div>
+                        <div class="name" style="font-size:16px; font-weight:bold; margin-top:24px">{{profile.cabinet_name}}</div>
+                    </div>
+                </div>
+            </md-toolbar>
+            <md-content>
+                <md-list class="navigation">
+                    <md-item ng-repeat="item in pages" class="{{item.class}}">
+                        <md-button class="waves-effect" ng-if="!item.space" ng-click="selectPage(item)" ng-class="{'active' : item.link === selected_menu }">
+                            <md-icon class="fa {{item.icon}} fa-2x"></md-icon>
+                            <span class="name">{{item.name}}</span>
+                        </md-button>
+                        <span layout-padding ng-if="item.space">
+                        </span>
+                    </md-item>
+                </md-list>
+            </md-content>
+        <!-- </div> -->
+    </md-sidenav>
+
+    <div layout="column" layout-fill style="height:100vh; max-height: 100vh">
+
+        <md-toolbar ng-if="loggedIn" class="md-whiteframe-z0">
+            <div class="md-toolbar-tools">
+                <md-button hide-gt-lg class="md-icon-button" aria-label="Menu" ng-click="toggleList()">
+                    <md-icon class="fa fa-bars fa-2x"></md-icon>
+                </md-button>
+                <h2>
+                    <i class="fa fa-briefcase fa-lg"></i>&nbsp;&nbsp;<b>Central</b> {{profile.prender}}
+                </h2>
+                <p ng-bind-html="myHTML"></p>
+                <span flex></span>
+                <!-- <md-button class="md-icon-button" aria-label="Minha Conta" ng-click="selectPage(account)">
+                    <md-icon class="fa fa-user fa-2x"></md-icon>
+                </md-button> -->
+            </div>
+        </md-toolbar>
+
+        <span ng-show="loader" layout="row" style="height:100%" layout-align="center center">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </span>
+        <md-content ng-hide="loader">
+
+            <!-- <pre>{{profile | json}}</pre> -->
+
+
+
+
+
+
+
+            <div layout="column" layout-gt-sm="row" class="padding-10">
+                <div class="caixa md-whiteframe-z1" flex>
+                    <div class="numero md-headline">
+                        <!-- http://blog.cloudcity.io/2013/05/15/angular-js-accounting-js-and-currency/ -->
+                        <!-- https://gist.github.com/alfielapeter/5534530 -->
+                        R$ {{somarAll('amount_released', propostas) | number:2}}
+                    </div>
+                    <div class="icone">
+                        <i class="fa fa-usd fa-2x"></i>
+                    </div>
+                    <p class="texto">
+
+                    </p>
+                    <div class="faixa">
+                        <span class="nome">Total Liberado</span>
+                        <!-- <span class="quantidade">{{propostas.length}} Propostas</span> -->
+                    </div>
+                </div>
+                <div class="caixa md-whiteframe-z1" flex>
+                    <div class="numero md-headline">
+                        <!-- http://blog.cloudcity.io/2013/05/15/angular-js-accounting-js-and-currency/ -->
+                        <!-- https://gist.github.com/alfielapeter/5534530 -->
+                        R$ {{somarAll('amount_commited', propostas) | number:2}}
+                    </div>
+                    <div class="icone">
+                        <i class="fa fa-suitcase fa-2x"></i>
+                    </div>
+                    <p class="texto">
+
+                    </p>
+                    <div class="faixa">
+                        <span class="nome">Total Empenhado</span>
+                        <!-- <span class="quantidade">{{propostas.length}} Propostas</span> -->
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div layout="column" layout-gt-sm="row" class="padding-10">
+
+                <div class="caixa md-whiteframe-z1" flex>
+
+                    <div class="numero md-headline">
+                        Proponentes
+                    </div>
+                    <div class="icone">
+                        <i class="fa fa-university fa-2x"></i>
+                    </div>
+
+
+                    <!-- {{(propostas | filter:'proponent').length}} -->
+
+
+                    <div ng-repeat="item in INFORS">
+                        <div class="barItem">
+
+                            <!-- <span class="quantidade">{{item.data}}</span> -->
+
+
+
+                            <span class="bgBar">
+                                <span class="bar" style="width: {{(item.data * 100) / propostas.length | number:2}}%!important">
+                                    <span class="numero">{{item.data}}</span>
+                                    <span class="porcentagem">{{(item.data * 100) / propostas.length | number:2}}%</span>
+                                </span>
+                            </span>
+
+                            <span class="nome">{{item.label}}</span>
+
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <!-- <canvas class="chart chart-doughnut" data="INFORS"
+                    labels="NOMES" legend="true" options="options" colours="color"></canvas> -->
+
+                    <div class="faixa">
+                        <!-- <span class="nome">Proponentes</span> -->
+                        <span class="quantidade">Proponentes</span>
+                        <!-- <span class="quantidade">{{propostas.length}} Propostas</span> -->
+                    </div>
+                </div>
+
+
+                <div class="caixa md-whiteframe-z1" flex>
+
+                    <div class="numero md-headline">
+                        Pareceres
+                    </div>
+                    <div class="icone">
+                        <i class="fa fa-gavel fa-2x"></i>
+                    </div>
+
+                    <canvas style="margin-top:20px" class="chart chart-doughnut" data="data" labels="labels" legend="true" options="options" colours="color"></canvas>
+
+                    <div class="faixa">
+                        <!-- <span class="nome">Pareceres</span> -->
+                        <span class="quantidade">Pareceres</span>
+                        <!-- <span class="quantidade">{{propostas.length}} Propostas</span> -->
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div layout="column" layout-gt-sm="row" class="padding-10">
+                <div class="caixa md-whiteframe-z1" flex>
+                    <div class="numero md-headline">
+                        {{propostas.length}} Propostas
+                    </div>
+                    <div class="icone">
+                        <i class="fa fa-briefcase fa-2x"></i>
+                    </div>
+
+
+
+
+<br>
+
+
+                    <div layout="row" layout-sm="column" class="subTitulo">
+                        <div class="preTitulo" flex>
+                            <md-subheader class="md-no-sticky">Propostas Empenhadas</md-subheader>
+                            <md-list-item class="md-3-line">
+                              <span class="md-avatar teste">{{(propostas | filter:'Empenhado').length}}</span>
+                              <div class="md-list-item-text">
+                                <h4>R$ {{somarAll('amount_commited', (propostas | filter:'Empenhado'))  | number:2}} Empenhado</h4>
+                                <p>R$ {{somarAll('amount_released', (propostas | filter:'Empenhado'))  | number:2}} Liberado</p>
+                              </div>
+                            </md-list-item>
+                        </div>
+                        <div class="preTitulo" flex>
+
+                            <md-subheader class="md-no-sticky">Propostas que Faltam Empenhar</md-subheader>
+                            <md-list-item class="md-3-line">
+                              <span class="md-avatar teste">{{(propostas | filter:'Falta Empenhar').length}}</span>
+                              <div class="md-list-item-text">
+                                <h4>R$ {{somarAll('amount_commited', (propostas | filter:'Falta Empenhar'))  | number:2}} Empenhado</h4>
+                                <p>R$ {{somarAll('amount_released', (propostas | filter:'Falta Empenhar'))  | number:2}} Liberado</p>
+                              </div>
+                            </md-list-item>
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" class="subTitulo">
+                        <div class="preTitulo" flex>
+                            <md-subheader class="md-no-sticky">Propostas Parcialmente Pagas</md-subheader>
+                            <md-list-item class="md-3-line">
+                              <span class="md-avatar teste">{{(propostas | filter:'Pago Parcial').length}}</span>
+                              <div class="md-list-item-text">
+                                <h4>R$ {{somarAll('amount_commited', (propostas | filter:'Pago Parcial'))  | number:2}} Empenhado</h4>
+                                <p>R$ {{somarAll('amount_released', (propostas | filter:'Pago Parcial'))  | number:2}} Liberado</p>
+                              </div>
+                            </md-list-item>
+                        </div>
+                        <div class="preTitulo" flex>
+
+                            <md-subheader class="md-no-sticky">Propostas Totalmente Pagas</md-subheader>
+                            <md-list-item class="md-3-line">
+                              <span class="md-avatar teste">{{(propostas | filter:'Pago Total').length}}</span>
+                              <div class="md-list-item-text">
+                                <h4>R$ {{somarAll('amount_commited', (propostas | filter:'Pago Total'))  | number:2}} Empenhado</h4>
+                                <p>R$ {{somarAll('amount_released', (propostas | filter:'Pago Total'))  | number:2}} Liberado</p>
+                              </div>
+                            </md-list-item>
+                        </div>
+                    </div>
+
+
+
+
+                    <p class="texto">
+
+                    </p>
+                    <div class="faixa">
+                        <!-- <span class="nome">{{propostas.length}} Propostas</span> -->
+                        <span class="quantidade">{{propostas.length}} Propostas</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- <md-divider ></md-divider> -->
+
+            <!-- <div layout="row" layout-sm="column" class="subTitulo">
+                <div class="preTitulo" flex>
+                    <md-subheader class="md-no-sticky mySubHeader">Pedidos de Alta Prioridade</md-subheader>
+                    <md-list-item class="md-3-line">
+                      <span class="md-avatar teste">{{(pedidos | filter:'Alta').length}}</span>
+                    </md-list-item>
+                </div>
+                <div class="preTitulo" flex>
+                    <md-subheader class="md-no-sticky mySubHeader">Pedidos de Orçamento</md-subheader>
+                    <md-list-item class="md-3-line">
+                      <span class="md-avatar teste">{{(pedidos | filter:'orcamento').length}}</span>
+                    </md-list-item>
+                </div>
+                <div class="preTitulo" flex>
+                    <md-subheader class="md-no-sticky mySubHeader">Pedidos de Audiencia</md-subheader>
+                    <md-list-item class="md-3-line">
+                      <span class="md-avatar teste">{{(pedidos | filter:'audiencia').length}}</span>
+                    </md-list-item>
+                </div>
+                <div class="preTitulo" flex>
+                    <md-subheader class="md-no-sticky mySubHeader">Pedidos Legislativos</md-subheader>
+                    <md-list-item class="md-3-line">
+                      <span class="md-avatar teste">{{(pedidos | filter:'legislativo').length}}</span>
+                    </md-list-item>
+                </div>
+            </div> -->
+
+            <!-- <md-divider ></md-divider>
+
+            <div layout="row" layout-sm="column" layout-padding>
+
+                <div class="" flex>
+                    <md-subheader class="md-no-sticky "><b>Eleições 2010</b>, 5 municípios mais votados.</md-subheader>
+                    <canvas  tc-chartjs-pie chart-options="options" chart-data="data"></canvas>
+
+                </div>
+
+
+                <div class="" flex>
+                    <md-subheader class="md-no-sticky "><b>Eleições 2014</b>, 5 municípios mais votados.</md-subheader>
+
+                    <canvas  tc-chartjs-doughnut chart-options="optionsDoughnut" chart-data="data"></canvas>
+                </div>
+
+            </div> -->
+
+            <md-divider></md-divider>
+
+            <!-- <h3>Votação nos municípios</h3>
+            <div class="md-primary" ng-repeat="item in votos_filtrados">
+                {{item.municipality}}
+                <br>
+                {{item.number_of_votes}}
+                <br>
+                {{item.percentage}}
+
+                <br>
+            </div>
+            -->
+        </md-content>
+    </div>
+
+</div>

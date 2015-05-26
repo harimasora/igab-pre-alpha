@@ -1,0 +1,46 @@
+<md-dialog aria-label="Mango (Fruit)">
+
+        <div layout="column">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">Criar Pedido</h2>
+            <span flex></span>
+            <md-button ng-click="addOnArray(pedido);">
+              Criar
+            </md-button>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding style="padding: 24px">
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Solicitante</label>
+                    <input ng-model="pedido.solicitante">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Prioridade</label>
+                    <input ng-model="pedido.prioridade">
+                </md-input-container>
+            </div>
+
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Ano de Solicitação</label>
+                    <input ng-model="pedido.ano_solicitacao">
+                </md-input-container>
+            </div>
+            
+        </md-content>
+      </div>
+
+  <!-- <div class="md-actions" layout="row">
+    <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" hide show-md>
+      More on Wikipedia
+    </md-button>
+    <span flex></span>
+    <md-button ng-click="answer('not useful')" class="md-primary">
+     Not Useful
+    </md-button>
+
+  </div> -->
+
+</md-dialog>

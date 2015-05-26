@@ -1,0 +1,147 @@
+<div layout="column" class="md-whiteframe-z1 webkit-border-top-radius">
+    <md-toolbar class="webkit-border-top-radius">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span><i class="fa fa-list-alt fa-lg"></i> <span hide-sm hide-md>Propostas&nbsp;</span><b>{{filtered.length}}</b></span>
+            </h2>
+            <span flex></span>
+            <md-input-container style="margin-bottom:-20px">
+                <label class="label" style="color:#fff">Buscar</label>
+                <input type="text" class="md-accent" ng-model="searchText" style="color:#fff">
+            </md-input-container>
+        </div>
+        <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+    </md-toolbar>
+    <div ng-show="loader" layout="row" style="height:100%" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-content ng-hide="loader">
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <legend>Solicitado</legend>&nbsp;<b>R$ {{somarAll('amount_commited', filtered)  | number:2}}</b>
+                <span flex></span>
+                <legend>Liberado</legend>&nbsp;<b>R$ {{somarAll('amount_released', filtered)  | number:2}}</b>
+            </div>
+        </md-toolbar>
+
+        <!-- <div layout="row" layout-sm="column" class="item-proposta-titulo">
+            <div flex>
+                <h3>Número do SICONV</h3>
+            </div>
+        </div> -->
+
+        <md-content ng-repeat="proposta in filtered=(propostas_filtradas | filter:searchText) | limitTo:10">
+
+            <div class="md-list-item-text items-propostas">
+                <div class="seguindo">
+                    <md-button ng-hide="proposta.seguindo" ng-click="seguir(proposta)" aria-label="SEGUIR">
+                        <md-icon class="fa fa-star fa-lg" style="width: 24px; height: 24px"></md-icon>
+                    </md-button>
+                    <md-button ng-show="proposta.seguindo" class="md-primary" ng-click="deixar(proposta, $index)" aria-label="DEIXAR DE SEGUIR">
+                        <md-icon class="fa fa-star fa-lg" style="width: 24px; height: 24px"></md-icon>
+                    </md-button>
+                </div>
+
+
+                <div layout="row" layout-sm="column" class="item-proposta-titulo" ng-click="abrirFechar(proposta)">
+                    <div flex>
+                        <!-- <h3>Número do SICONV</h3> -->
+                        <p>{{proposta.proposal_number}}</p>
+                    </div>
+                </div>
+
+                <div class="content-list" ng-show="proposta.open">
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Valor Empenhado</h3>
+                            <p>R$ {{proposta.amount_commited | number:2}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Valor Liberado</h3>
+                            <p>R$ {{proposta.amount_released | number:2}}</p>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Número do processo</h3>
+                            <p>{{proposta.process_number}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Número do Empenho</h3>
+                            <p>{{proposta.commitment_number}}</p>
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Modalidade</h3>
+                            <p>{{proposta.modality}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Situação</h3>
+                            <p>{{proposta.situation}}</p>
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Concedente</h3>
+                            <p>{{proposta.grantor}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Proponente</h3>
+                            <p>{{proposta.proponent}}</p>
+                        </div>
+                    </div>
+
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Tipo</h3>
+                            <p> {{proposta.amendment_type}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Objeto</h3>
+                            <p> {{proposta.agreement_object}}</p>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Situação Especifica</h3>
+                            <p> {{proposta.specific_situation}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Situação da Contratação Atual</h3>
+                            <p> {{proposta.current_employment_situation}}</p>
+                        </div>
+                    </div>
+
+                    <!-- <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Data de Criação</h3>
+                            <p> {{proposta.created_at | date: "dd-MM-yyyy HH:mm:ss"}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Data de Atualização</h3>
+                            <p> {{proposta.updated_at | date: "dd-MM-yyyy HH:mm:ss"}}</p>
+                        </div>
+                    </div> -->
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Ano</h3>
+                            <p> {{proposta.year}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Número do Parlamentar</h3>
+                            <p> {{proposta.parliamentarian}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-content>
+
+    </md-content>
+</div>
+<br>

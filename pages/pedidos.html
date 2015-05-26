@@ -1,0 +1,139 @@
+<div layout="column" class="md-whiteframe-z1 webkit-border-top-radius">
+    <md-toolbar class="webkit-border-top-radius">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span><i class="fa fa-file-text fa-lg"></i> <span hide-sm hide-md>Pedidos&nbsp;</span><b>{{filtered.length}}</b></span>
+            </h2>
+            <span flex></span>
+            <md-input-container style="margin-bottom:-20px">
+                <label class="label" style="color:#fff">Buscar</label>
+                <input type="text" class="md-accent" ng-model="searchText" style="color:#fff">
+            </md-input-container>
+        </div>
+        <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+    </md-toolbar>
+    <div ng-show="loader" layout="row" style="height:100%" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-content ng-hide="loader">
+        <!-- <div layout="row" layout-sm="column" ng-click="currentPage = 0">
+            <div flex>
+                <md-subheader class="md-no-sticky">Tipo de Solicitação
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="max-height: 200px;">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(tipo_solicitacao_filter)" ng-checked="checkAllMet(tipo_solicitacao_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in tipo_solicitacao_filter" ng-model="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div>
+            <div flex>
+                <md-subheader class="md-no-sticky">Prioridade
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="height: 200px;">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(prioridade_filter)" ng-checked="checkAllMet(prioridade_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in prioridade_filter" ng-model="selected[item]" aria-label="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div>
+            <div flex>
+                <md-subheader class="md-no-sticky">Situação
+                    <md-progress-linear ng-show="loader" md-mode="indeterminate"></md-progress-linear>
+                </md-subheader>
+                <md-content layout-padding style="height: 200px;">
+                    <md-switch class="md-primary" ng-click="checkAllClicked(situacao_filter)" ng-checked="checkAllMet(situacao_filter)">
+                        <span><b>Todos</b></span>
+                    </md-switch>
+                    <md-switch class="md-primary" ng-repeat="item in situacao_filter" ng-model="selected[item]" aria-label="selected[item]">
+                        {{item}}
+                    </md-switch>
+                </md-content>
+            </div>
+        </div> -->
+
+        <md-content ng-repeat="item in filtered=(dados_filtrados | filter:searchText)">
+
+            <div class="md-list-item-text items-propostas">
+
+                <div layout="row" layout-sm="column" class="item-proposta-titulo" ng-click="abrirFechar(item)">
+                    <div flex>
+                        <p>{{item.solicitante}}</p>
+                    </div>
+                </div>
+                <div class="content-list" ng-show="item.open">
+
+                <!-- <md-toolbar layout="row" layout-sm="column" class="item-proposta">
+                    <div class="label"><i class="fa fa-sort-desc fa-4x"></i></div>
+                    <div flex>
+                        <h3>Solicitante</h3>
+                        <p>{{item.solicitante}}</p>
+                    </div>
+                    <div flex>
+                        <h3>Interessados</h3>
+                        <div data-ng-repeat="interessado in item.interessados">
+                            <p>{{interessado}}</p>
+                        </div>
+                    </div>
+                </md-toolbar> -->
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Interessados</h3>
+                            <div data-ng-repeat="interessado in item.interessados">
+                                <p>{{interessado}}</p>
+                            </div>
+                        </div>
+                        <div flex>
+                            <h3>Tipo de Solicitação</h3>
+                            <p>{{item.tipo_solicitacao}}</p>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Situação</h3>
+                            <p> {{item.situacao}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Prioridade</h3>
+                            <p>{{item.prioridade}}</p>
+                        </div>
+
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta">
+                        <div flex>
+                            <h3>Data da Solicitação</h3>
+                            <p>{{item.data_solicitacao | date: "dd-MM-yyyy"}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Ano da Solicitação</h3>
+                            <p> {{item.ano_solicitacao}}</p>
+                        </div>
+
+                    </div>
+
+                    <div layout="row" layout-sm="column" class="item-proposta listra">
+                        <div flex>
+                            <h3>Objeto</h3>
+                            <p> {{item.objeto}}</p>
+                        </div>
+                        <div flex>
+                            <h3>Concedente</h3>
+                            <p> {{item.concedente}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-content>
+
+    </md-content>
+</div>
+<br>

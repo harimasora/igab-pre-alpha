@@ -1,0 +1,20 @@
+<div ng-controller="PropostasCtrl">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+        <h2>
+            <i class="fa {{sidenav.icone}} fa-lg"></i>&nbsp;&nbsp;<b>{{sidenav.titulo}}</b>
+        </h2>
+        <span flex></span>
+      <md-switch hide-sm hide-md hide-lg class="md-primary md-hue-3" ng-model="$parent.$parent.prender" aria-label="prender"></md-switch>
+      </div>
+    </md-toolbar>
+    <form>
+        <md-input-container>
+            <label for="testInput">Pesquisar</label>
+            <input type="text" ng-model="$parent.$parent.searchText" md-sidenav-focus>
+        </md-input-container>
+    </form>
+    <!-- <md-button ng-click="close()" class="md-primary">
+        Fechar
+    </md-button> -->
+</div>

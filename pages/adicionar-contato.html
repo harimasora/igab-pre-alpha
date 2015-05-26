@@ -1,0 +1,92 @@
+<form name="myForm" novalidate>
+    <div layout="column" class="md-whiteframe-z1 webkit-border-top-radius">
+        <md-toolbar class="webkit-border-top-radius">
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span><i class="fa fa-user-plus fa-lg"></i> Adicionar novo contato.</span>
+                </h2>
+                <span flex></span>
+                <md-button ng-click="addUser()" ng-disabled="myForm.$invalid || disable"><i class="fa fa-user-plus fa-lg"></i> ADICIONAR</md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Nome (obrigatório)</label>
+                    <input name="first_name" ng-model="things.first_name"><!-- required -->
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Sobrenome (obrigatório)</label>
+                    <input name="last_name" ng-model="things.last_name"><!-- required -->
+                </md-input-container>
+            </div>
+            <!-- <div layout layout-sm="column"> -->
+
+            <div layout layout-sm="column">
+                <md-container flex ng-repeat="field in things.emails track by $index">
+                    <md-input-container flex>
+                        <label>E-mail (obrigatório)</label>
+                        <!-- Use floating placeholder instead of label -->
+                        <span class="deletar" ng-click="removeFormField(things.emails,things.emails[$index])"><i class="fa fa-trash-o fa-2x"></i></span>
+                        <input type="email" ng-model="things.emails[$index]"><!-- required -->
+                    </md-input-container>
+                </md-container>
+                <md-input-container style="width:20%">
+                    <md-button class="md-raised addButton" ng-click="addFormField(things.emails)"><i class="fa fa-plus fa-lg"></i> E-mail</md-button>
+                </md-input-container>
+            </div>
+
+            <div layout layout-sm="column">
+                <md-container flex ng-repeat="field in things.telephones track by $index">
+                    <md-input-container flex>
+                        <label>Telefone (obrigatório)</label>
+                        <!-- Use floating placeholder instead of label -->
+                        <span class="deletar" ng-click="removeFormField(things.telephones,things.telephones[$index])"><i class="fa fa-trash-o fa-2x"></i></span>
+                        <input ng-model="things.telephones[$index]"><!-- required -->
+                    </md-input-container>
+                </md-container>
+                <md-input-container style="width:20%">
+                    <md-button class="md-raised addButton" ng-click="addFormField(things.telephones)"><i class="fa fa-plus fa-lg"></i> Telefone</md-button>
+                </md-input-container>
+            </div>
+
+            <!-- </div> -->
+            <div layout layout-sm="column">
+                <!-- https://docs.angularjs.org/api/ng/input/input%5Bdate%5D -->
+                <md-input-container style="width:80%">
+                    <label>Profissão</label>
+                    <input ng-model="things.job">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Nascimento</label>
+                    <input type="date" name="birth_date" ng-model="things.birth_date">
+                </md-input-container>
+            </div>
+            <md-input-container flex>
+                <label>Endereço</label>
+                <input name="address" ng-model="things.address">
+            </md-input-container>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Cidade</label>
+                    <input name="city" ng-model="things.city">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Estado</label>
+                    <input name="federation_unit" ng-model="things.federation_unit">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>CEP</label>
+                    <input name="postal_code" ng-model="things.postal_code">
+                </md-input-container>
+            </div>
+
+        </md-content>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-primary" ng-click="addUser()" ng-disabled="myForm.$invalid || disable"><i class="fa fa-user-plus fa-lg"></i> ADICIONAR</md-button>
+            </div>
+        </md-toolbar>
+    </div>
+</form>

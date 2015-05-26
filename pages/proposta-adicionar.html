@@ -1,0 +1,118 @@
+<md-dialog aria-label="Proposta">
+
+    <div layout="column">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">Criar Proposta</h2>
+            <span flex></span>
+            <div layout="row">
+                <md-button ng-click="addOnArray(propostaCriar);">
+                  Criar
+                </md-button>
+            </div>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding style="padding: 24px" class="propostaAberta">
+
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>proposal_number</label>
+                    <input ng-model="propostaCriar.proposal_number" aria-label="proposal_number">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>agreement_number</label>
+                    <input ng-model="propostaCriar.agreement_number" aria-label="agreement_number">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>agreement_object</label>
+                    <input ng-model="propostaCriar.agreement_object" aria-label="agreement_object">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>amendment_type</label>
+                    <input ng-model="propostaCriar.amendment_type" aria-label="amendment_type">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>amount_commited</label>
+                    <input ng-model="propostaCriar.amount_commited" aria-label="amount_commited">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>amount_released</label>
+                    <input ng-model="propostaCriar.amount_released" aria-label="amount_released">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>commitment_number</label>
+                    <input ng-model="propostaCriar.commitment_number" aria-label="commitment_number">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>current_employment_situation</label>
+                    <input ng-model="propostaCriar.current_employment_situation" aria-label="current_employment_situation">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>federation_unit</label>
+                    <input ng-model="propostaCriar.federation_unit" aria-label="federation_unit">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>grantor</label>
+                    <input ng-model="propostaCriar.grantor" aria-label="grantor">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>has_opinion</label>
+                    <input ng-model="propostaCriar.has_opinion" aria-label="has_opinion">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>modality</label>
+                    <input ng-model="propostaCriar.modality" aria-label="modality">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>municipality</label>
+                    <input ng-model="propostaCriar.municipality" aria-label="municipality">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>parliamentarian</label>
+                    <input ng-model="propostaCriar.parliamentarian" aria-label="parliamentarian">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>process_number</label>
+                    <input ng-model="propostaCriar.process_number" aria-label="process_number">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>proponent</label>
+                    <input ng-model="propostaCriar.proponent" aria-label="proponent">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>situation</label>
+                    <input ng-model="propostaCriar.situation" aria-label="situation">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>specific_situation</label>
+                    <input ng-model="propostaCriar.specific_situation" aria-label="specific_situation">
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <label>year</label>
+                    <input ng-model="propostaCriar.year" aria-label="year">
+                </md-input-container>
+                <md-input-container flex>
+                    <!-- id -->
+                </md-input-container>
+            </div>
+        </md-content>
+      </div>
+</md-dialog>

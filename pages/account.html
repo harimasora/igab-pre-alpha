@@ -1,0 +1,99 @@
+<div layout="column" class="md-whiteframe-z1 webkit-border-top-radius">
+    <md-toolbar class="webkit-border-top-radius">
+        <div class="md-toolbar-tools">
+            <h2>
+                <i class="fa fa-user fa-lg"></i> <span>Olá, {{profile.name}} {{profile.lastName}}.</span>
+            </h2>
+            <span flex></span>
+            <md-button ng-click="logout()"><i class="fa fa-sign-out fa-lg"></i> &nbsp;<b>Sair</b></md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content layout-padding>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Nome</label>
+            <input ng-model="profile.name">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Sobrenome</label>
+            <input ng-model="profile.lastName">
+          </md-input-container>
+        </div>
+
+
+    </md-content>
+
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>E-mail: <b>{{profile.email}}</b></span>
+                </h2>
+                <span flex></span>
+                <md-button ng-click="changeEmail(pass, newEmail)"><i class="fa fa-envelope-o fa-lg"></i> &nbsp;<b>Alterar E-mail</b></md-button>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-padding>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Novo E-Mail</label>
+                    <input type="text" ng-keypress="clear()" ng-model="newEmail">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Sua Senha</label>
+                    <input type="password" ng-keypress="clear()" ng-model="pass">
+                </md-input-container>
+            </div>
+
+            <p class="error" ng-show="emailerr">{{emailerr}}</p>
+            <p class="good" ng-show="emailmsg">{{emailmsg}}</p>
+        </md-content>
+        <!-- <md-toolbar class="md-accent">
+            <div class=" md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-primary" ng-click="changeEmail(pass, newEmail)"><i class="fa fa-envelope-o fa-lg"></i> Alterar E-mail</md-button>
+            </div>
+        </md-toolbar> -->
+    </form>
+
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>Senha</span>
+                </h2>
+                <span flex></span>
+                <md-button ng-click="changePassword(oldpass, newpass, confirm)"><i class="fa fa-key fa-lg"></i>&nbsp;<b>Alterar Senha</b></md-button>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-padding>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Senha Atual</label>
+                    <input type="password" ng-keypress="clear()" ng-model="oldpass">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Nova Senha</label>
+                    <input type="password" ng-keypress="clear()" ng-model="newpass">
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Confirmar Nova Senha</label>
+                    <input type="password" ng-keypress="clear()" ng-model="confirm">
+                </md-input-container>
+            </div>
+
+            <p class="error" ng-show="err">{{err}}</p>
+            <p class="good" ng-show="msg">{{msg}}</p>
+        </md-content>
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-primary" ng-click="logout()"><i class="fa fa-sign-out fa-lg"></i> &nbsp;<b>Sair</b></md-button>
+            </div>
+        </md-toolbar>
+    </form>
+</div>

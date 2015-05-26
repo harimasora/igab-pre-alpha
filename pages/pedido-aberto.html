@@ -1,0 +1,68 @@
+<md-dialog aria-label="Mango (Fruit)">
+
+        <div layout="column">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">Pedido A</h2>
+            <span flex></span>
+            <!-- <md-button ng-click="addOnArray(pedido);">
+              Criar
+            </md-button> -->
+
+            <div layout="row">
+
+                <md-button ng-show="edicao" ng-click="removeOnArray(editarPedido);"><i class="fa fa-trash fa-lg"></i> Remover</md-button>
+
+                <md-button ng-hide="edicao" ng-click="fechar();"><i class="fa fa-times fa-lg"></i> Fechar</md-button>
+
+                <md-button ng-hide="edicao" ng-click="edicao = true"><i class="fa fa-pencil fa-lg"></i> Editar</md-button>
+
+                <md-button ng-show="edicao" ng-click="saveOnArray(editarPedido); edicao = false"><i class="fa fa-floppy-o fa-lg"></i> Salvar</md-button>
+            </div>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding style="padding: 24px">
+
+            <div layout layout-sm="column">
+                <span ng-hide="edicao">{{editarPedido.solicitante}}</span>
+                <span ng-show="edicao">
+                    <md-input-container flex>
+                        <label>Solicitante</label>
+                        <input ng-model="editarPedido.solicitante">
+                    </md-input-container>
+                </span>
+<span flex></span>
+                <span ng-hide="edicao">{{editarPedido.prioridade}}</span>
+                <span ng-show="edicao">
+                    <md-input-container flex>
+                        <label>Prioridade</label>
+                        <input ng-model="editarPedido.prioridade">
+                    </md-input-container>
+                </span>
+            </div>
+<span flex></span>
+            <div layout layout-sm="column">
+                <span ng-hide="edicao">{{editarPedido.ano_solicitacao}}</span>
+                <span ng-show="edicao">
+                    <md-input-container flex>
+                        <label>Ano de Solicitação</label>
+                        <input ng-model="editarPedido.ano_solicitacao">
+                    </md-input-container>
+                </span>
+            </div>
+
+        </md-content>
+      </div>
+
+  <!-- <div class="md-actions" layout="row">
+    <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" hide show-md>
+      More on Wikipedia
+    </md-button>
+    <span flex></span>
+    <md-button ng-click="answer('not useful')" class="md-primary">
+     Not Useful
+    </md-button>
+
+  </div> -->
+
+</md-dialog>

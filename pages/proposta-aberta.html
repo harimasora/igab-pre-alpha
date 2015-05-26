@@ -1,0 +1,263 @@
+<md-dialog aria-label="Abrir Proposta">
+
+    <div layout="column">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 class="md-flex">Proposta {{propostaAberta.proposal_number}}</h2>
+            <span flex></span>
+            <!-- <md-button ng-click="addOnArray(pedido);">
+              Criar
+            </md-button> -->
+
+            <div layout="row">
+
+                <!-- <md-button ng-show="edicao" ng-click="removeOnArray(propostaAberta);"><i class="fa fa-trash fa-lg"></i> Remover</md-button> -->
+
+                <!-- <md-button ng-hide="edicao" ng-click="fechar();"><i class="fa fa-times fa-lg"></i> Fechar</md-button> -->
+
+                <!-- <md-button ng-hide="edicao" ng-click="edicao = true"><i class="fa fa-pencil fa-lg"></i> Editar</md-button> -->
+
+                <!-- <md-button ng-show="edicao" ng-click="saveOnArray(propostaAberta); edicao = false"><i class="fa fa-floppy-o fa-lg"></i> Salvar</md-button> -->
+            </div>
+          </div>
+        </md-toolbar>
+        <md-content layout-padding style="padding: 24px" class="propostaAberta">
+
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>proposal_number</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.proposal_number}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.proposal_number" aria-label="proposal_number">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>agreement_number</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.agreement_number}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.agreement_number" aria-label="agreement_number">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>agreement_object</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.agreement_object}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.agreement_object" aria-label="agreement_object">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>amendment_type</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.amendment_type}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.amendment_type" aria-label="amendment_type">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>amount_commited</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.amount_commited}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.amount_commited" aria-label="amount_commited">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>amount_released</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.amount_released}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.amount_released" aria-label="amount_released">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>commitment_number</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.commitment_number}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.commitment_number" aria-label="commitment_number">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>current_employment_situation</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.current_employment_situation}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.current_employment_situation" aria-label="current_employment_situation">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>federation_unit</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.federation_unit}}
+                        </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.federation_unit" aria-label="federation_unit">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>grantor</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.grantor}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.grantor" aria-label="grantor">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>has_opinion</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.has_opinion}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.has_opinion" aria-label="has_opinion">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>modality</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.modality}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.modality" aria-label="modality">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>municipality</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.municipality}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.municipality" aria-label="municipality">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>parliamentarian</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.parliamentarian}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.parliamentarian" aria-label="parliamentarian">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>process_number</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.process_number}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.process_number" aria-label="process_number">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>proponent</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.proponent}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.proponent" aria-label="proponent">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>situation</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.situation}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.situation" aria-label="situation">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <h3>specific_situation</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.specific_situation}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.specific_situation" aria-label="specific_situation">
+                    </span>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <h3>year</h3>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.year}}
+                    </span>
+                    <span ng-show="edicao">
+                        <input ng-model="propostaAberta.year" aria-label="year">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <span>
+                        <h2>id</h2>
+                        {{propostaAberta.$id}}
+                    </span>
+                    <!-- <span ng-show="edicao">
+                        <label>id</label>
+                        <input ng-model="propostaAberta.$id" aria-label="$id">
+                    </span> -->
+                </md-input-container>
+            </div>
+
+            <!-- <div layout layout-sm="column" class="listra">
+                <md-input-container flex>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.TROCAR}}
+                        </span>
+                    <span ng-show="edicao">
+                        <label>TROCAR</label>
+                        <input ng-model="propostaAberta.TROCAR" aria-label="TROCAR">
+                    </span>
+                </md-input-container>
+                <md-input-container flex>
+                    <span ng-hide="edicao">
+                        {{propostaAberta.TROCAR}}
+                        </span>
+                    <span ng-show="edicao">
+                        <label>TROCAR</label>
+                        <input ng-model="propostaAberta.TROCAR" aria-label="TROCAR">
+                    </span>
+                </md-input-container>
+            </div> -->
+
+        </md-content>
+      </div>
+
+  <!-- <div class="md-actions" layout="row">
+    <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" hide show-md>
+      More on Wikipedia
+    </md-button>
+    <span flex></span>
+    <md-button ng-click="answer('not useful')" class="md-primary">
+     Not Useful
+    </md-button>
+
+  </div> -->
+
+</md-dialog>
